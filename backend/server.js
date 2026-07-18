@@ -13,16 +13,25 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Home Route
+app.get('/', (req, res) => {
+  res.send('🚀 Cyber-HUBQ Backend is Running Successfully!');
+});
+
+// Health Check Route
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'Backend is running successfully'
+  });
+});
+
+// API Routes
 app.use('/api/scan', scannerRoutes);
 app.use('/api/feed', feedRoutes);
 app.use('/api/email', emailRoutes);
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'Backend is running' });
-});
-
+// Start Server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
